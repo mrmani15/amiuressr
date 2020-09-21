@@ -80,27 +80,20 @@ exports.login = async (req, res) => {
 
 exports.logout = (req, res) => {
   res.clearCookie('jwt')
-  res.clearCookie('email')
+  res.clearCookie('id')
   res.status(200).redirect('/login')
 }
 
 exports.blog = (req, res) => {
   const { title, blog } = req.body
-  const usercookie = req.headers.cookie
+  const id = req.cookies.id
 
   const raw = {
     title: title,
     blog: blog
   }
-
   const data = JSON.stringify(raw)
-  let cookieValues = usercookie.split(' ')
-  let cookieValue = null
-  cookieValues[0].length > cookieValues[1].length ? cookieValue = cookieValues[1] : cookieValue = cookieValues[0]
-  const conversion = cookieValue + ''
-  const idString = conversion.split('=')
-  const idVal = idString[1].split(';')
-  const id = idVal[0]
+  
   if ((title === '') || (blog === '')) {
     return res.status(401).render('dashboard', {
       message: 'field is empty'
@@ -125,7 +118,7 @@ exports.edit = (req, res) => {
   const conversion = cookieValue + ''
   const idString = conversion.split('=')
   const id = parseInt(idString[1])
-
+  console.log(req.cookies.id, id, 'hello');
   const raw = {
     title: title,
     blog: blog

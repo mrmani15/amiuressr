@@ -108,6 +108,7 @@
 				<div class="border p-2 mb-1">
 					<div class="d-flex justify-content-between">
 						<h3><%= data[i].blog.title %></h3>
+						<% if(id === data[i].blogId){ %>
 						<button
 							class="btn btn-sm btn-info"
 							onclick="edit(this)"
@@ -115,6 +116,7 @@
 						>
 							Edit
 						</button>
+						<% }%>
 					</div>
 					<p><%= data[i].blog.blog %></p>
 				</div>
@@ -137,8 +139,8 @@
 		</div>
 		<script>
 			function edit(event) {
-				document.cookie = 'indexValueIs=' + event.value;
-				window.location.href = '/edit';
+				document.cookie = 'index=' + event.value;
+				window.location.href = '/' + event.value;
 			}
 		</script>
 
