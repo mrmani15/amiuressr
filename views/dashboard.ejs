@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Amiure Dashboard</title>
+		<link
+			rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+			integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+			crossorigin="anonymous"
+		/>
+		<link rel="stylesheet" href="/style.css" />
+	</head>
+
+	<body>
+		<nav style="padding: 10px 60px 10px 60px">
+			<h4>Node MYSQL</h4>
+			<ul>
+				<li>
+					<button
+						class="btn text-white font-weight-bolder mt-0"
+						data-toggle="modal"
+						data-target="#staticBackdrop"
+					>
+						Write
+					</button>
+				</li>
+				<li>
+					<form action="/auth/logout" method="POST">
+						<button class="btn text-white font-weight-bolder mt-0">
+							Logout
+						</button>
+					</form>
+				</li>
+			</ul>
+		</nav>
+		<div class="container mt-4">
+			<!-- modal form -->
+
+			<div
+				class="modal fade"
+				id="staticBackdrop"
+				data-backdrop="static"
+				data-keyboard="false"
+				tabindex="-1"
+				aria-labelledby="staticBackdropLabel"
+				aria-hidden="true"
+			>
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="staticBackdropLabel">
+								Write Blog
+							</h5>
+							<button
+								type="button"
+								class="close"
+								data-dismiss="modal"
+								aria-label="Close"
+							>
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<form action="/auth/blog" method="POST">
+							<div class="modal-body">
+								<div class="form-group">
+									<input
+										type="text"
+										class="form-control"
+										name="title"
+										placeholder="Enter your blog title"
+									/>
+								</div>
+								<div class="form-group">
+									<textarea
+										class="form-control"
+										name="blog"
+										cols="30"
+										rows="5"
+										placeholder="Write your blog here"
+									></textarea>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button
+									type="button"
+									class="btn btn-secondary"
+									data-dismiss="modal"
+								>
+									Close
+								</button>
+								<button type="submit" class="btn btn-primary">
+									Submit
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- list of blogs -->
+
+		<div class="container">
+			<% if(typeof data != "undefined" ){ %>
+			<ul class="list-group mb-2 mt-3">
+				<% for (let i = 0; i < data.length; i++) { %>
+				<div class="border p-2 mb-1">
+					<div class="d-flex justify-content-between">
+						<h3><%= data[i].blog.title %></h3>
+						<button
+							class="btn btn-sm btn-info"
+							onclick="edit(this)"
+							value="<%= i %>"
+						>
+							Edit
+						</button>
+					</div>
+					<p><%= data[i].blog.blog %></p>
+				</div>
+				<% }%>
+			</ul>
+			<% }%>
+		</div>
+		<div class="d-flex justify-content-between container mt-3">
+			<nav>
+				<ul class="pagination">
+					<% for(let i = 1; i <= page; i++) {%>
+					<li class="page-item">
+						<a href="/dashboard/<%= i %>" className="page-link">
+							<%= i %>
+						</a>
+					</li>
+					<% }%>
+				</ul>
+			</nav>
+		</div>
+		<script>
+			function edit(event) {
+				document.cookie = 'indexValueIs=' + event.value;
+				window.location.href = '/edit';
+			}
+		</script>
+
+		<script
+			src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+			integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+			integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+			integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+			crossorigin="anonymous"
+		></script>
+	</body>
+</html>
