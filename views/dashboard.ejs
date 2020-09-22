@@ -15,7 +15,7 @@
 
 	<body>
 		<nav style="padding: 10px 60px 10px 60px">
-			<h4>Node MYSQL</h4>
+			<a href="/dashboard/1"><h4>Node MYSQL</h4></a>
 			<ul>
 				<li>
 					<button
@@ -105,21 +105,23 @@
 			<% if(typeof data != "undefined" ){ %>
 			<ul class="list-group mb-2 mt-3">
 				<% for (let i = 0; i < data.length; i++) { %>
-				<div class="border p-2 mb-1">
-					<div class="d-flex justify-content-between">
-						<h3><%= data[i].blog.title %></h3>
-						<% if(id === data[i].blogId){ %>
-						<button
-							class="btn btn-sm btn-info"
-							onclick="edit(this)"
-							value="<%= i %>"
-						>
-							Edit
-						</button>
-						<% }%>
+				<a href="/read/<%= data[i].id %>">
+					<div class="border p-2 mb-1">
+						<div class="d-flex justify-content-between">
+							<h3><%= data[i].blog.title %></h3>
+							<% if(id === data[i].blogId){ %>
+							<a
+								type="submit"
+								class="btn btn-sm btn-info"
+								href="/edit/<%= data[i].id %>"
+							>
+								Edit
+							</a>
+							<% }%>
+						</div>
+						<p><%= data[i].blog.blog.slice(0, 200) %></p>
 					</div>
-					<p><%= data[i].blog.blog %></p>
-				</div>
+				</a>
 				<% }%>
 			</ul>
 			<% }%>

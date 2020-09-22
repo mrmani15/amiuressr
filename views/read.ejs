@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Amiure Home</title>
+		<title>Amiure edit</title>
 		<link
 			rel="stylesheet"
 			href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
@@ -12,31 +12,43 @@
 		/>
 		<link rel="stylesheet" href="/style.css" />
 	</head>
+
 	<body>
-		<nav>
-			<a href="/"><h4>Node MYSQL</h4></a>
+		<nav style="padding: 10px 60px 10px 60px">
+			<a href="/dashboard/1">
+				<h4>Node MYSQL</h4>
+			</a>
 			<ul>
-				<li><a href="/">Home</a></li>
-				<li><a href="/login">Login</a></li>
-				<li><a href="/register">Register</a></li>
+				<li>
+					<button
+						class="btn text-white font-weight-bolder mt-0"
+						data-toggle="modal"
+						data-target="#staticBackdrop"
+					>
+						Write
+					</button>
+				</li>
+				<li>
+					<form action="/auth/logout" method="POST">
+						<button class="btn text-white font-weight-bolder mt-0">
+							Logout
+						</button>
+					</form>
+				</li>
 			</ul>
 		</nav>
-		<div class="container mt-4">
-			<div class="jumbotron">
-				<h1 class="display-4">Server side Project</h1>
-				<p class="lead">
-					This is a simple Server side Project with mysql database in
-					node Environment.
-				</p>
-				<hr class="my-4" />
-				<p>
-					In this project we can Authenticate user and user can create
-					blog, read all blog and edit own blog.
-				</p>
-				<a class="btn btn-primary btn-lg" href="#" role="button"
-					>Dummy button</a
-				>
-			</div>
+		<div class="container mt-5">
+			<div class="card">
+				<div class="card-header text-center">
+					<h1><%= data[0].blog.title %></h1>
+				</div>
+				<div class="card-body">
+					<p><%= data[0].blog.blog %></p>
+				</div>
+      </div>
+      <div class="card-footer">
+        <a type="button" href="/dashboard/1" class="btn btn-sm btn-info">Back</a>
+      </div>
 		</div>
 
 		<script

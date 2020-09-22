@@ -19,7 +19,7 @@ router.get('/register', (req, res) => res.render('register'))
 router.get('/login', (req, res) => res.render('login'))
 
 
-router.get('/dashboard/:page',auth, (req, res) => {
+router.get('/dashboard/:page', auth, (req, res) => {
   db.query('SELECT * FROM blog', (error, response) => {
     if (error) {
       console.log(error)
@@ -33,8 +33,8 @@ router.get('/dashboard/:page',auth, (req, res) => {
 
       const lastIndex = currentPage * postPerPage
       const firstIndex = lastIndex - postPerPage
-      
-      const page = Math.ceil(response.length/postPerPage)
+
+      const page = Math.ceil(response.length / postPerPage)
       response = response.slice(firstIndex, lastIndex)
       const id = req.cookies.id
       return res.status(200).render('dashboard', { data: response, page: page, id: id })
@@ -42,8 +42,10 @@ router.get('/dashboard/:page',auth, (req, res) => {
   })
 })
 
-router.get('/:edit',auth, (req, res) => {
-  const id = req.params.edit
+
+router.get('/edit/:id', auth, (req, res) => {
+  let id = req.params.id
+  res.cookie('index', id)
   db.query('SELECT * FROM blog', (error, response) => {
     if (error) {
       console.log(error)
@@ -51,8 +53,24 @@ router.get('/:edit',auth, (req, res) => {
       for (let i = 0; i < response.length; i++) {
         response[i].blog = JSON.parse(response[i].blog)
       }
-      response = response.reverse()
-      return res.status(200).render('edit', { data: response[id] })
+      const dataVal = response.filter(data => data.id == id)
+      return res.status(200).render('edit', { data: dataVal })
+    }
+  })
+})
+
+
+router.get('/read/:id', auth, (req, res) => {
+  let id = req.params.id
+  db.query('SELECT * FROM blog', (error, response) => {
+    if (error) {
+      console.log(error)
+    } else {
+      for (let i = 0; i < response.length; i++) {
+        response[i].blog = JSON.parse(response[i].blog)
+      }
+      const dataVal = response.filter(data => data.id == id)
+      return res.status(200).render('read', { data: dataVal })
     }
   })
 })

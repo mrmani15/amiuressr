@@ -35,4 +35,4 @@ db.connect((err) => {
 app.use('/', require('./routes/pages'))
 app.use('/auth', require('./routes/auth'))
 
-app.listen(5000, () => console.log('server started'))
+app.listen(80, () => console.log('server started'))

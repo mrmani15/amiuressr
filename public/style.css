@@ -1,5 +1,5 @@
 nav {
-	background-color: #563d7c;
+	background-color: #b59ed6;
 	color: #fff;
 	padding: 20px 60px;
 	display: flex;
@@ -17,15 +17,15 @@ nav li {
 }
 
 nav li a {
-  color: #fff;
-  text-decoration: none;
-  font-weight: bold;
-  padding: 5px 8px;
+	color: #fff;
+	text-decoration: none;
+	font-weight: bold;
+	padding: 5px 8px;
 }
 
-nav li a:hover{
-  color: yellow;
-  text-decoration: none;
+nav li a:hover {
+	color: yellow;
+	text-decoration: none;
 }
 
 /* nav li button {

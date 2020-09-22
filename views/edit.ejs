@@ -11,23 +11,46 @@
 			crossorigin="anonymous"
 		/>
 		<link rel="stylesheet" href="/style.css" />
-  </head>
+	</head>
 
 	<body>
+		<nav style="padding: 10px 60px 10px 60px">
+			<a href="/dashboard/1">
+				<h4>Node MYSQL</h4>
+			</a>
+			<ul>
+				<li>
+					<button
+						class="btn text-white font-weight-bolder mt-0"
+						data-toggle="modal"
+						data-target="#staticBackdrop"
+					>
+						Write
+					</button>
+				</li>
+				<li>
+					<form action="/auth/logout" method="POST">
+						<button class="btn text-white font-weight-bolder mt-0">
+							Logout
+						</button>
+					</form>
+				</li>
+			</ul>
+		</nav>
 		<div class="container mt-5 d-flex justify-content-center">
 			<div class="card" style="width: 50rem">
 				<div class="card-header">
 					<h2 class="text-center">Edit</h2>
 				</div>
 				<div class="card-body">
-          <% if(typeof data != "undefined" ){ %>
+					<% if(typeof data != "undefined" ){ %>
 					<form action="/auth/edit" method="POST">
 						<div class="form-group">
 							<input
 								type="text"
 								class="form-control"
-                name="title"
-                value="<%= data.blog.title %>"
+								name="title"
+								value="<%= data[0].blog.title %>"
 							/>
 						</div>
 						<div class="form-group">
@@ -36,25 +59,21 @@
 								name="blog"
 								cols="30"
 								rows="5"
-              ><%= data.blog.blog %>
-            </textarea>
+							>
+<%= data[0].blog.blog %>
+            </textarea
+							>
 						</div>
 
 						<button type="submit" class="btn btn-primary">
 							Submit
 						</button>
-          </form>
-          <% }%>
+					</form>
+					<% }%>
 				</div>
 			</div>
 		</div>
-		<div class="container d-flex justify-content-center">
-			<% if(typeof message != "undefined" ){ %>
-			<h2 class="alert mt-3 alert-danger" style="width: 50rem">
-				<%= message %>
-			</h2>
-			<% }%>
-		</div>
+
 		<script
 			src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 			integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

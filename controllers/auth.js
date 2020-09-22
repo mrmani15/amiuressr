@@ -93,7 +93,7 @@ exports.blog = (req, res) => {
     blog: blog
   }
   const data = JSON.stringify(raw)
-  
+
   if ((title === '') || (blog === '')) {
     return res.status(401).render('dashboard', {
       message: 'field is empty'
@@ -111,14 +111,7 @@ exports.blog = (req, res) => {
 
 exports.edit = (req, res) => {
   const { title, blog } = req.body
-  const usercookie = req.headers.cookie
-  let cookieValues = usercookie.split(' ')
-  cookieValues = cookieValues.sort()
-  let cookieValue = cookieValues[1]
-  const conversion = cookieValue + ''
-  const idString = conversion.split('=')
-  const id = parseInt(idString[1])
-  console.log(req.cookies.id, id, 'hello');
+  const id = req.cookies.index
   const raw = {
     title: title,
     blog: blog
@@ -133,10 +126,8 @@ exports.edit = (req, res) => {
     if (error) {
       console.log(error)
     } else {
-      const len = response.length
-      const idValueForUpdate = len - id
 
-      db.query('UPDATE blog SET blog = ? WHERE id = ?', [data, idValueForUpdate], (err, resp) => {
+      db.query('UPDATE blog SET blog = ? WHERE id = ?', [data, id], (err, resp) => {
         if (err) {
           console.log(err)
         } else {
